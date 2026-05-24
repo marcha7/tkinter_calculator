@@ -1,4 +1,4 @@
-# pk's Tkinter Calculator
+# Tkinter Calculator
 
 A simple Calculator built with tkinter in python
 
