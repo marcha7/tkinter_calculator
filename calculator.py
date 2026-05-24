@@ -1,4 +1,5 @@
 import tkinter as tk
+import webbrowser
 
 class Calculator:
     def __init__(self, result_text):
@@ -30,7 +31,7 @@ class Calculator:
                         self.is_result = False
                     else:
                         self.operands[0] = int(f"{self.operands[0]}{number}")
-                else : 
+                else: 
                     self.operands.append(number)
             case 2:
                 self.operands[1] = int(f"{self.operands[1]}{number}")
@@ -75,12 +76,17 @@ class Calculator:
             self.is_result = True
             self.result_text.set(result)
 
+def open_github():
+    webbrowser.open('https://github.com/marcha7/tkinter_calculator/')
+
 
 root = tk.Tk()
 root.title('Calculatrice')
 root.iconbitmap('Puck.ico')
 root.config(background='#333333')
 root.geometry("400x600")
+
+github_icon = tk.PhotoImage(file="github_logo_white.png").subsample(5,5)
 
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
@@ -115,11 +121,8 @@ result.grid(row=0, rowspan=2, column=0, columnspan=4, sticky='nsew', padx=pad_x,
 calculator = Calculator(result_text)
 
 
-mc_button = tk.Button(main_frame, text='MC', bg=button_bg, fg='white', font=calculator_font)
-mc_button.grid(row=2, column=0, sticky='nsew', padx=pad_x, pady=pad_y)
-
-m_plus_button = tk.Button(main_frame, text='M+', bg=button_bg, fg='white', font=calculator_font)
-m_plus_button.grid(row=2, column=1, sticky='nsew', padx=pad_x, pady=pad_y)
+github_button = tk.Button(main_frame, text='GitHub', image=github_icon, bg=button_bg, fg='white', font=calculator_font, command=lambda: open_github())
+github_button.grid(row=2, column=0, columnspan=2, sticky='nsew', padx=pad_x, pady=pad_y)
 
 
 digit_buttons = [
