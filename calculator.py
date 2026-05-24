@@ -5,6 +5,7 @@ class Calculator:
         self.result_text = result_text
         self.operands = []
         self.operation = ""
+        self.is_result = False
 
     def show_equation(self):
         match len(self.operands):
@@ -24,21 +25,30 @@ class Calculator:
                 self.operands.append(number)
             case 1:
                 if self.operation == "":
-                    self.operands[0] = number
+                    if self.is_result:
+                        self.operands[0] = number
+                        self.is_result = False
+                    else:
+                        self.operands[0] = int(f"{self.operands[0]}{number}")
                 else : 
                     self.operands.append(number)
             case 2:
-                self.operands[1] = number
+                self.operands[1] = int(f"{self.operands[1]}{number}")
         self.show_equation()
 
     def set_operation(self, operation):
         if len(self.operands) != 0:
-            self.operation = operation
+            if self.operands[0] != '-':
+                self.operation = operation
+                self.show_equation()
+        elif operation == '-':
+            self.operands.append('-')
             self.show_equation()
 
     def clear(self):
         self.operands.clear()
         self.operation = ""
+        self.is_result = False
         self.result_text.set('0')
 
     def calculate_result(self):
@@ -57,11 +67,12 @@ class Calculator:
                         self.result_text.set(result)
                         return
                     else:
-                        result = self.operands[0] / self.operands[1]
+                        result = int(self.operands[0] / self.operands[1])
                 case _:
                     return
             self.clear()
             self.operands.append(result)
+            self.is_result = True
             self.result_text.set(result)
 
 
